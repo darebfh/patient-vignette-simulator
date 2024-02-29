@@ -42,34 +42,42 @@ with st.sidebar:
     st.divider()
     st.markdown(anamnesis_structure.anamnesis_structure)
 
-if st.session_state.openai_key:
-    try:
-        client = OpenAI(api_key=st.session_state.openai_key)
-        client.models.list()
-    except Exception as e:
-        st.error(f"Error: Incorrect API key. Check the key and try again.")
-    else:
-        st.toast("OpenAI API key is valid")
-        for message in st.session_state.messages:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+tab1, tab2 = st.tabs(["Chat", "Vignette"])
+with tab1:
+    if st.session_state.openai_key:
+        try:
+            client = OpenAI(api_key=st.session_state.openai_key)
+            client.models.list()
+        except Exception as e:
+            st.error(f"Error: Incorrect API key. Check the key and try again.")
+        else:
+            st.toast("OpenAI API key is valid")
+            for message in st.session_state.messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
 
-        if prompt := st.chat_input("Ask anamnesis question"):
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            with st.chat_message("user"):
-                st.markdown(prompt)
-            history = [{"role": m["role"], "content": m["content"]}
-                       for m in st.session_state.messages
-                       ]
-            history.insert(0, {"role": "system", "content": st.session_state.vignette})
-            with st.chat_message("assistant"):
-                stream = client.chat.completions.create(
-                    seed=42,
-                    model=st.session_state["openai_model"],
-                    messages=history,
-                    stream=True,
-                )
-                response = st.write_stream(stream)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-else:
-    st.warning("Please enter your OpenAI key in the sidebar to start the chat")
+            if prompt := st.chat_input("Ask anamnesis question"):
+                st.session_state.messages.append({"role": "user", "content": prompt})
+                with st.chat_message("user"):
+                    st.markdown(prompt)
+                history = [{"role": m["role"], "content": m["content"]}
+                           for m in st.session_state.messages
+                           ]
+                history.insert(0, {"role": "system", "content": st.session_state.vignette})
+                with st.chat_message("assistant"):
+                    stream = client.chat.completions.create(
+                        seed=42,
+                        model=st.session_state["openai_model"],
+                        messages=history,
+                        stream=True,
+                    )
+                    response = st.write_stream(stream)
+                st.session_state.messages.append({"role": "assistant", "content": response})
+    else:
+        st.warning("Please enter your OpenAI key in the sidebar to start the chat")
+
+with tab2:
+    st.write(
+        "You can edit the vignette directly in the field below. As the changes will be applied immediately, it is recommended to reset the chat history and start a new chat.")
+    st.session_state.vignette = st.text_area("Vignette", st.session_state.vignette, height=800)
+

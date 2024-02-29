@@ -15,4 +15,4 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [tool.pdm.scripts]
-run-chainlit = {cmd= "python ./src/openai-assistant/app.py"}
+run-app = {cmd= "streamlit run ./src/streamlit/Chat.py"}

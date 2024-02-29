@@ -1,5 +1,5 @@
 anamnesis_structure = """
-Follow the structure below when performing the evaluation:
+Follow the structure below as closely as possible when performing the evaluation:
 
 ### Introduction
 - Hello! I am Dr. Lehmann and I will ask you several questions regarding your health now. Why are you here today?

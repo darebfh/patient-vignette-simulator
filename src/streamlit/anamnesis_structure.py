@@ -2,7 +2,7 @@ anamnesis_structure = """
 Follow the structure below as closely as possible when performing the evaluation:
 
 ### Introduction
-- Hello! I am Dr. Lehmann and I will ask you several questions regarding your health now. Why are you here today?
+- Hello! I am Dr. Wenger and I will ask you several questions regarding your health now. Why are you here today?
 
 ### Current symptoms
 - Tell me more about symptom X. 

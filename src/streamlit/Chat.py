@@ -37,7 +37,7 @@ if "current_vignette" not in st.session_state:
     st.session_state.current_vignette = st.session_state.vignettes[0]
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "user", "content": "Hello! I am Dr. Lehmann and I will ask you several questions regarding your health now. Why are you here today?"},
+    st.session_state.messages = [{"role": "user", "content": "Hello! I am Dr. Wenger and I will ask you several questions regarding your health now. Why are you here today?"},
                                {"role": "assistant", "content": "Thank you doctor for having me. I don't feel well and I have some symptoms that I would like to discuss with you."}]
 
 

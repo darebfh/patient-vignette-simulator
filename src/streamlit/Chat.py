@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     menu_items={
         'Get Help': 'mailto:daniel.reichenpfader@bfh.ch',
-        'About': "# This is a header. This is an *extremely* cool app!"
+        'About': "This source code © 2024 by K. Denecke and D. Reichenpfader is licensed under CC BY-SA 4.0"
     }
 )
 client = None

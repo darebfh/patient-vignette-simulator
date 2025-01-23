@@ -19,7 +19,7 @@ st.set_page_config(
 )
 client = None
 path_to_json_files = "data/input/"
-st.title("Simulation diverser Patient:innen-Populationen mit Fallvignetten und Large Language Models")
+st.title("Simulation diverser Patient*innen-Populationen mit Fallvignetten und Large Language Models")
 if "vignettes" not in st.session_state:
     st.session_state.vignettes = []
     json_file_names = [filename for filename in os.listdir(path_to_json_files) if filename.endswith('.json')]
@@ -42,7 +42,7 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    st.session_state.openai_key = st.text_input("API Schlüssel", type="password")
+    st.session_state.openai_key = st.text_input("API Schlüssel eingeben und mit Enter bestätigen", type="password")
     st.session_state.openai_model = st.selectbox("Sprachmodell", ["gpt-4o-mini", "gpt-4o"], index=0)
     st.download_button(label="Konversation herunterladen", data=json.dumps(st.session_state.messages), file_name="conversation_history.json", mime="application/json")
 

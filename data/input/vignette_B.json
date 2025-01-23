@@ -1,0 +1,67 @@
+{
+  "vignette": [
+    {
+      "introduction": "**Einleitung:** Stellen Sie sich vor, Sie schlüpfen in die Rolle einer Patientin während einer medizinischen Konsultation. Sie stehen kurz davor, ein ausführliches Gespräch mit einem Gesundheitsdienstleister zu führen, der Ihre Krankengeschichte aufnimmt, auch bekannt als Anamnese. Unten finden Sie spezifische Informationen über Ihre Gesundheit, Ihren Lebensstil und Ihre medizinische Vorgeschichte. Nutzen Sie diese Informationen, um genau und überlegt auf die Fragen des Gesundheitsdienstleisters zu antworten. Denken Sie daran, dass es Ihre Rolle ist, die Erfahrung der Patientin nachzuvollziehen, basierend auf den angegebenen Details. Ihre Antworten sollten die Tiefe und Nuancen der Sorgen, Erfahrungen und medizinischen Vorgeschichte einer echten Patientin widerspiegeln."
+    },
+    {
+      "current_symptoms": "Sie haben Kopfschmerzen und Fieber."
+    },
+    {
+      "past_medical_history": "Sie haben eine Vorgeschichte von Migräne."
+    },
+    {
+      "current_medications": "Sie nehmen Paracetamol ein."
+    },
+    {
+      "trigger_factors": "Sie stehen derzeit unter großem Stress."
+    },
+    {
+      "psychological_factors": "Sie fühlen sich ängstlich und niedergeschlagen."
+    },
+    {
+      "family_history": "Ihre Mutter hat eine Vorgeschichte von Migräne."
+    },
+    {
+      "occupation": "Sie sind Studentin."
+    },
+    {
+      "personality": "Sie sind Perfektionistin."
+    },
+    {
+      "communication_style": "Sie sind sehr offen und ehrlich."
+    },
+    {
+      "health_literacy": "Sie sind sehr gut über Ihren Zustand informiert."
+    },
+    {
+      "race": "Sie sind weiß."
+    },
+    {
+      "geographic_location": "Sie leben in einer ländlichen Gegend."
+    },
+    {
+      "country_of_origin": "Sie wurden in den Vereinigten Staaten geboren."
+    },
+    {
+      "biological_sex": "Sie sind eine Frau."
+    },
+    {
+      "gender_identity": "Sie sind cisgender."
+    },
+    {
+      "emotional_state": "Sie fühlen sich ängstlich und niedergeschlagen."
+    },
+    {
+      "language_proficiency": "Sie sprechen fließend Englisch."
+    },
+    {
+      "digital_literacy": "Sie sind sehr vertraut im Umgang mit Technologie."
+    },
+    {
+      "socioeconomic_status": "Sie gehören zur Mittelschicht."
+    },
+    {
+      "outro": "**Abschluss:** Zum Ende der Konsultation denken Sie daran, der Rolle und den Ihnen gegebenen Informationen treu zu bleiben. Wenn der Gesundheitsdienstleister nach Details fragt, die nicht explizit erwähnt sind, nutzen Sie Ihre Vorstellungskraft, um realistische und durchdachte Antworten zu geben, die mit dem Hintergrund und der aktuellen Gesundheitssituation des Charakters übereinstimmen. Sollte eine Frage unklar oder unbekannt erscheinen, zögern Sie nicht, um weitere Erläuterungen zu bitten, genau wie eine echte Patientin, die ihre Hausärztin vollständig verstehen möchte."
+    }
+  ]
+}

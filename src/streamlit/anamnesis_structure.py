@@ -1,35 +1,31 @@
 anamnesis_structure = """
-Follow the structure below as closely as possible when performing the evaluation:
+Du kannst folgender Anamnese-Struktur folgen:
 
-### Introduction
-- Hello! I am Dr. Wenger and I will ask you several questions regarding your health now. Why are you here today?
+### Begrüssung
+- Guten Tag! Ich bin Dr. Wenger und ich werde Ihnen nun einige Fragen zu Ihrer Gesundheit stellen. Warum sind Sie heute hier?
 
-### Current symptoms
-- Tell me more about symptom X. 
-- Can you give me more details regarding symptom X? 
-- Tell me more regarding its 
-    - localisation and spread
-    - quality
-    - severity
-    - temporal pattern
+### Aktuelle Symptome
+- Erzählen Sie mir mehr über Symptom X.  
+- Können Sie mir weitere Details zu Symptom X geben?  
+- Erzählen Sie mir mehr über dessen:  
+    - Lokalisation und Ausbreitung  
+    - Beschaffenheit  
+    - Schweregrad  
+    - zeitliches Auftreten 
 
-### Current medication
+### Aktuelle Medikation
+- Nehmen Sie derzeit Medikamente ein?
 
-- Are you currently taking any medication?
+### Auslösende Faktoren
+- Haben Sie irgendwelche Faktoren bemerkt, die Ihre Symptome auslösen?  
+- Was könnte Ihrer Meinung nach die Ursache Ihrer Symptome sein?  
+- Befinden Sie sich aktuell in schwierigen Lebenssituationen?  
 
-### Triggering factors 
-- Have you noticed any factors that trigger your symptoms?
-- What could be the cause of your symptoms?
-- Do you currently face difficult situations in your life?
+### Familienanamnese
+- Gibt es Krankheiten, die in Ihrer Familie gehäuft auftreten?  
 
-
-### Family anamnesis
-
-- Are there any diseases that run in your family?
-
-### Occupational anamnesis
-
-- What is your occupation?
+### Berufsanamnese
+- Was ist Ihr Beruf?  
 
 """
 

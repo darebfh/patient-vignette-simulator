@@ -8,7 +8,7 @@ import streamlit as st
 import anamnesis_structure
 
 st.set_page_config(
-    page_title="Patient simulator",
+    page_title="Patient:innen-Simulator",
     page_icon="🩺",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -19,7 +19,7 @@ st.set_page_config(
 )
 client = None
 path_to_json_files = "data/input/"
-st.title("Simulating Diverse Patient Populations Using Patient Vignettes and Large Language Models")
+st.title("Simulation diverser Patient:innen-Populationen mit Fallvignetten und Large Language Models")
 if "vignettes" not in st.session_state:
     st.session_state.vignettes = []
     json_file_names = [filename for filename in os.listdir(path_to_json_files) if filename.endswith('.json')]
@@ -37,49 +37,50 @@ if "current_vignette" not in st.session_state:
     st.session_state.current_vignette = st.session_state.vignettes[0]
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "user", "content": "Hello! I am Dr. Wenger and I will ask you several questions regarding your health now. Why are you here today?"},
-                               {"role": "assistant", "content": "Thank you doctor for having me. I don't feel well and I have some symptoms that I would like to discuss with you."}]
+    st.session_state.messages = [{"role": "user", "content": "Guten Tag! Mein Name ist Dr. Wenger und ich werde Sie nun zu Ihrem Gesundheitszustand befragen. Warum sind Sie heute hier?"},
+                               {"role": "assistant", "content": "Vielen Dank Frau Doktor. Ich fühle mich aktuell nicht gut und habe ein paar Symptome, über die ich mit Ihnen reden möchte."}]
 
 
 with st.sidebar:
-    st.session_state.openai_key = st.text_input("OpenAI key", type="password")
-    st.session_state.openai_model = st.selectbox("OpenAI model", ["gpt-3.5-turbo", "gpt-4"], index=1)
-    st.download_button(label="Download conversation history", data=json.dumps(st.session_state.messages), file_name="conversation_history.json", mime="application/json")
+    st.session_state.openai_key = st.text_input("API Schlüssel", type="password")
+    st.session_state.openai_model = st.selectbox("Sprachmodell", ["gpt-4o-mini", "gpt-4o"], index=0)
+    st.download_button(label="Konversation herunterladen", data=json.dumps(st.session_state.messages), file_name="conversation_history.json", mime="application/json")
 
-    if st.button("Reset chat"):
+    if st.button("Konversation zurücksetzen"):
         st.session_state.messages = [{"role": "user",
-                                      "content": "Hello! I am Dr. Lehmann and I will ask you several questions regarding your health now. Why are you here today?"},
+                                      "content": "Guten Tag! Mein Name ist Dr. Wenger und ich werde Sie nun zu Ihrem Gesundheitszustand befragen. Warum sind Sie heute hier?"},
                                      {"role": "assistant",
-                                      "content": "Thank you doctor for having me. I don't feel well and I have some symptoms that I would like to discuss with you."}]
+                                      "content": "Vielen Dank Frau Doktor. Ich fühle mich aktuell nicht gut und habe ein paar Symptome, über die ich mit Ihnen reden möchte."}]
 
-        st.toast("Chat was reset",icon= "👍")
+        st.toast("Konversation wurde zurückgesetzt",icon= "👍")
     st.divider()
-    st.markdown(anamnesis_structure.anamnesis_structure)
-    st.divider()
-    st.session_state.current_vignette = st.selectbox("Vignette", st.session_state.vignettes, format_func=lambda x: x[0])
-    st.write(
-        "You can edit the vignette directly in the field below. As the changes will be applied immediately, it is recommended to reset the chat history and start a new chat.")
-    new_vignette = st.text_area("Vignette", st.session_state.current_vignette[1], height=800)
-    if st.button("Save new vignette"):
-        if new_vignette == st.session_state.current_vignette[1]:
-            st.warning("The new vignette is the same as the old one. No changes were saved.")
-        else:
-            vignette_title = st.session_state.current_vignette[0] + "_edited"
-            st.session_state.vignettes.append([vignette_title, new_vignette])
+    with st.expander("Tipps zur Anamnese anzeigen"):
+        st.markdown(anamnesis_structure.anamnesis_structure)
+    with st.expander("Vignetten wechseln und bearbeiten"):
+        st.session_state.current_vignette = st.selectbox("Vignette", st.session_state.vignettes, format_func=lambda x: x[0])
+        st.write(
+            "Du kannst die Vignette in folgendem Textfeld direkt anpassen. Da die Änderungen direkt angewendet werden, sollte die aktuelle Konversation gelöscht werden.")
+        new_vignette = st.text_area("Vignette", st.session_state.current_vignette[1], height=800)
+        if st.button("Neue Vignette speichern"):
+            if new_vignette == st.session_state.current_vignette[1]:
+                st.warning("Es wurden keine Änderungen erkannt.")
+            else:
+                vignette_title = st.session_state.current_vignette[0] + "_edited"
+                st.session_state.vignettes.append([vignette_title, new_vignette])
 
 if st.session_state.openai_key:
     try:
         client = OpenAI(api_key=st.session_state.openai_key)
         client.models.list()
     except Exception as e:
-        st.error(f"Error: Incorrect API key. Check the key and try again.")
+        st.error(f"Achtung: API Schlüssel inkorrekt.  Überprüfe den Schlüssel und versuche es erneut.")
     else:
-        st.toast("OpenAI API key is valid")
+        st.toast("API Schlüssel erfolgreich validiert", icon="🔑")
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
-        if prompt := st.chat_input("Ask anamnesis question"):
+        if prompt := st.chat_input("Stelle eine Frage"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.chat_message("user"):
                 st.markdown(prompt)
@@ -97,7 +98,7 @@ if st.session_state.openai_key:
                 response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
 else:
-    st.warning("Please enter your OpenAI key in the sidebar to start the chat")
+    st.warning("Füge den API Schlüssel links oben in der Seitenleiste ein, um den Chat zu starten.")
 
 
 

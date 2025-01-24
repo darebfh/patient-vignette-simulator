@@ -1,7 +1,7 @@
 [project]
-name = ""
-version = ""
-description = ""
+name = "Patient:innen-Simulator"
+version = "1.0"
+description = "Simulation diverser Patient*innen-Populationen mit Fallvignetten und Large Language Models"
 authors = [
     {name = "Daniel Reichenpfader", email = "daniel.reichenpfader@bfh.ch"},
 ]

@@ -1,5 +1,5 @@
 [project]
-name = "PatientInnen Simulator"
+name = "paiettensimulator"
 version = "1.0"
 description = "Simulation diverser Patient*innen-Populationen mit Fallvignetten und Large Language Models"
 authors = [

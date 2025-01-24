@@ -1,5 +1,5 @@
 [project]
-name = "streamlit"
+name = "simulator"
 version = "1.0"
 description = "Simulation diverser Patient*innen-Populationen mit Fallvignetten und Large Language Models"
 authors = [
@@ -15,4 +15,4 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [tool.pdm.scripts]
-run-app = {cmd= "streamlit run ./src/streamlit/Chat.py"}
+run-app = {cmd= "streamlit run ./src/simulator/Chat.py"}

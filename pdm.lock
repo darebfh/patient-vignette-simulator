@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["cross_platform"]
 lock_version = "4.5.0"
-content_hash = "sha256:a392fb0113198f96726edcf874938b6c90e31823bf994fe437094968779c9911"
+content_hash = "sha256:64127d420c52471e0a77a371a7c748658c0b0b037e35a8531515f583c8b6f13c"
 
 [[metadata.targets]]
 requires_python = ">=3.10"

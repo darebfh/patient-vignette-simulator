@@ -42,7 +42,8 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    st.session_state.openai_key = st.text_input("API Schlüssel eingeben und mit Enter bestätigen", type="password")
+    inserted_key = st.text_input("API Schlüssel eingeben und mit Enter bestätigen", type="password")
+    st.session_state.openai_key = inserted_key.strip()
     st.session_state.openai_model = st.selectbox("Sprachmodell", ["gpt-4o-mini", "gpt-4o"], index=0)
     st.download_button(label="Konversation herunterladen", data=json.dumps(st.session_state.messages), file_name="conversation_history.json", mime="application/json")
 
@@ -67,6 +68,40 @@ with st.sidebar:
             else:
                 vignette_title = st.session_state.current_vignette[0] + "_edited"
                 st.session_state.vignettes.append([vignette_title, new_vignette])
+    st.divider()
+    if st.session_state.openai_key:
+        st.text("Fertig mit der Anamnese? Du kannst mit folgendem Button deine Anamnese-Skills bewerten lassen. Schaffst du eine Bewertung von 100 Punkten?")
+        if st.button("Anamnese bewerten"):
+            with st.spinner("Bewertung der Anamnese läuft..."):
+                try:
+                    client = OpenAI(api_key=st.session_state.openai_key)
+                    client.models.list()
+                except Exception as e:
+                    st.error(f"Achtung: API Schlüssel inkorrekt.  Überprüfe den Schlüssel und versuche es erneut.")
+                else:
+                    history = str([{"role": m["role"], "content": m["content"]}
+                               for m in st.session_state.messages
+                               ])
+                    system_prompt = "Du bist eine erfahrene Hausärztin und unterrichtest Patient:innen-Kommunikation an einer medizinischen Universität. Bewerte, wie gut der Arzt bzw. die Ärztin folgendes simulierte Anamnese-Gespräch mit einem simulierten Patienten bzw. einer simulierten Patientin durchführt. Deine kritische Bewertung betrifft den Arzt bzw. die Ärztin und besteht aus einem Score zwischen 1 und 100 sowie einer kurzen Erklärung, was verbessert werden könnte. Für einen Score von 100 müssen alle Aspekte aus der Beschreibung erfragt werden. Erkläre ausserdem, welche Aspekte aus der Patientenbeschreibung übersehen wurden. Verewende Gender-gerechte Sprache. Verwende Markdown, um den Text zu formatieren. Beschreibung des Patienten: " + st.session_state.current_vignette[1]
+                    messages = [
+                        {"role": "developer", "content": system_prompt},
+                        {
+                            "role": "user",
+                            "content": history
+                        }
+                    ]
+                    response = client.chat.completions.create(
+                        seed=42,
+                        model=st.session_state["openai_model"],
+                        messages=messages,
+                        stream=False
+                    )
+
+                    st.markdown(response.choices[0].message.content)
+                    with st.expander("Prompt anzeigen"):
+                        st.code(messages, language="json", wrap_lines=True)
+                    st.balloons()
+
 
 if st.session_state.openai_key:
     try:
@@ -97,6 +132,7 @@ if st.session_state.openai_key:
                 )
                 response = st.write_stream(stream)
             st.session_state.messages.append({"role": "assistant", "content": response})
+
 else:
     st.warning("Füge den API Schlüssel links oben in der Seitenleiste ein, um den Chat zu starten.")
 

@@ -42,8 +42,13 @@ if "messages" not in st.session_state:
 
 
 with st.sidebar:
-    inserted_key = st.text_input("API Schlüssel eingeben und mit Enter bestätigen", type="password")
-    st.session_state.openai_key = inserted_key.strip()
+    inserted_pw = st.text_input("Passwort eingeben und mit Enter bestätigen", type="password")
+    st.session_state.openai_key = ""
+    if inserted_pw.strip() == st.secrets["password"]:
+        st.session_state.openai_key = st.secrets["openai_key"]
+    elif inserted_pw.strip() != "":
+        st.warning("Passwort inkorrekt.")
+
     st.session_state.openai_model = st.selectbox("Sprachmodell", ["gpt-4o-mini", "gpt-4o"], index=0)
     st.download_button(label="Konversation herunterladen", data=json.dumps(st.session_state.messages), file_name="conversation_history.json", mime="application/json")
 
@@ -103,14 +108,14 @@ with st.sidebar:
                     st.balloons()
 
 
-if st.session_state.openai_key:
+if st.session_state.openai_key != "":
     try:
         client = OpenAI(api_key=st.session_state.openai_key)
         client.models.list()
     except Exception as e:
-        st.error(f"Achtung: API Schlüssel inkorrekt.  Überprüfe den Schlüssel und versuche es erneut.")
+        st.error(f"Achtung: Passwort inkorrekt.  Überprüfe das Passwort und versuche es erneut.")
     else:
-        st.toast("API Schlüssel erfolgreich validiert", icon="🔑")
+        st.toast("Passwort erfolgreich validiert", icon="🔑")
         for message in st.session_state.messages:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
@@ -134,7 +139,7 @@ if st.session_state.openai_key:
             st.session_state.messages.append({"role": "assistant", "content": response})
 
 else:
-    st.warning("Füge den API Schlüssel links oben in der Seitenleiste ein, um den Chat zu starten.")
+    st.warning("Gib das Passwort links oben in der Seitenleiste ein, um den Chat zu starten.")
 
 
 
